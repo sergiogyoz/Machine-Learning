@@ -52,16 +52,18 @@ def custom_plot(df=pd.DataFrame, xtag="", ytag="",
         ax.xaxis.set_major_formatter(date_format)
     plt.gcf().set_size_inches(xsize,ysize)
 
-def cross_corr( df1=pd.DataFrame, df2=pd.DataFrame,
+def cross_corr( df1=pd.DataFrame, #df2=pd.DataFrame,
                 tag1="", tag2="",
 #                start_date, end_date,  # mmm read data?
 #                window_size=365,       # should I just use the bounds of the data? 
                 shift_range=(-10,10),
-                plot = True):
+                plot = False):
     """
     Cross correlation tool for the project. User is assumed to give dfs 
     with the same (daily time index) timezone
     """
+
+    df2 = df1 # mmmm df2 deprecated ?
 
     if df1.index[0].tz != df2.index[0].tz:
         raise(ValueError("time index zone is not the same in both dfs"))
@@ -91,6 +93,8 @@ def cross_corr( df1=pd.DataFrame, df2=pd.DataFrame,
 
     return maxcv, ccv
 
-
+def toarray(arr):
+    np.reshape(arr,len(arr))
+    return[arr[i][0] for i in range(len(arr))]
 
 
